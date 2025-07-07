@@ -44,19 +44,59 @@ const Manager = () => {
 
   }
   const savePassword = () => {
-    setPasswordArray([...passwordArray, {...form,id : uuidv4()}])
-    localStorage.setItem("passwords", JSON.stringify([...passwordArray,{...form,id : uuidv4()}]))
-    console.log([...passwordArray, form]);
+    if (form.site.length>3 && form.username.length>3 && form.password.length>3) {
+          setPasswordArray([...passwordArray, { ...form, id: uuidv4() }])
+    localStorage.setItem("passwords", JSON.stringify([...passwordArray, { ...form, id: uuidv4() }]))
+    setForm({ site: '', username: '', password: '' })
+          toast.success('Saved !', {
+        position: "bottom-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } else {
+       toast.warn('invalid input', {
+      position: "bottom-right",
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+    }
+
 
   }
   const editPassword = (id) => {
-    console.log("editing pass with id",id);
+    console.log("editing pass with id", id);
+    setForm(passwordArray.filter(item => item.id == id)[0])
+    setPasswordArray(passwordArray.filter(item => item.id !== id))
+
 
   }
   const deletePassword = (id) => {
-    console.log("deleting pass with id",id);
-     setPasswordArray(passwordArray.filter(item=>item.id!==id))
-    localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item=>item.id!==id)))
+    console.log("deleting pass with id", id);
+    let c = confirm("are you sure ?")
+    if (c) {
+      setPasswordArray(passwordArray.filter(item => item.id !== id))
+      localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item => item.id !== id)))
+      toast.error('deleted!', {
+        position: "bottom-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
 
   }
   const handleChange = (e) => {
@@ -81,19 +121,19 @@ const Manager = () => {
       />
       <ToastContainer />
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-green-700 opacity-20 blur-[100px]"></div></div>
-      <div className="container mx-auto  mycontainer">
+      <div className="container mx-auto p-3 md:mycontainer">
         <h1 className='text-center font-bold text-4xl'><span className='text-green-500'>&lt;</span>
           Pass
           <span className='text-green-500'>OP/&gt;</span></h1>
         <p className='text-center text-green-900 text-lg'>Your personal password manager</p>
 
         <div className=' flex flex-col items-center p-4 text-black gap-8'>
-          <input value={form.site} name='site' placeholder='Enter Website URL' onChange={handleChange} className='bg-white rounded-full border  border-white-green-500 w-full p-4 py-2' type="text" />
+          <input value={form.site} name='site' placeholder='Enter Website URL' onChange={handleChange} className='bg-white rounded-full border  border-white-green-500 w-full p-4 py-2' type="text" id='site' />
 
-          <div className='flex gap-8 w-full justify-between'>
-            <input value={form.username} name='username' placeholder='Enter User Name' onChange={handleChange} className='bg-white rounded-full  border border-white-green-500 w-full p-4 py-2 ' type="text" />
+          <div className='flex flex-col md:flex-row gap-8 w-full justify-between'>
+            <input value={form.username} name='username' placeholder='Enter User Name' onChange={handleChange} className='bg-white rounded-full  border border-white-green-500 w-full p-4 py-2 ' type="text" id='username' />
             <div className="relative">
-              <input ref={passwordRef} type="password" value={form.password} name='password' placeholder='Enter Password' onChange={handleChange} className='bg-white rounded-full  border border-white-green-500 w-full p-4 py-2' />
+              <input ref={passwordRef} type="password" value={form.password} name='password' placeholder='Enter Password' onChange={handleChange} id='password' className='bg-white rounded-full  border border-white-green-500 w-full p-4 py-2' />
               <span className='absolute right-0 top-[10px]'><img ref={ref} src="icons/eye.png" width={25} className=' p-1 cursor-pointer' onClick={showPassword} alt="" /></span>
             </div>
           </div>
@@ -160,14 +200,14 @@ const Manager = () => {
                     </div>
                   </td>
                   <td className='flex justify-center gap-3 border py-2 border-white text-center'>
-                    <span onClick={()=>{deletePassword(item.id)}}>
+                    <span onClick={() => { deletePassword(item.id) }}>
                       <lord-icon
                         src="https://cdn.lordicon.com/xyfswyxf.json"
                         trigger="hover"
                         style={{ "width": "25px", "height": "25px" }}>
                       </lord-icon>
                     </span>
-                    <span onClick={()=>{editPassword(item.id)}}>
+                    <span onClick={() => { editPassword(item.id) }}>
                       <lord-icon
                         src="https://cdn.lordicon.com/exymduqj.json"
                         trigger="hover"
