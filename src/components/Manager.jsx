@@ -136,7 +136,7 @@ const Manager = () => {
           <h2 className='font-bold text-2xl text-slate-700 py-2'>Your Passwords</h2>
           {passwordArray.length == 0 && <div>No passwords to display</div>}
           {passwordArray.length !== 0 && <table className="table-auto w-full  rounded-md overflow-hidden">
-            <thead className='bg-green-800 text-white'>
+            <thead className='bg-green-800 text-white text-xs md:text-lg'>
               <tr>
                 <th className='py-2'>Site</th>
                 <th className='py-2'>Username</th>
@@ -144,7 +144,7 @@ const Manager = () => {
                 <th className='py-2'>Action</th>
               </tr>
             </thead>
-            <tbody className='bg-green-100'>
+            <tbody className='bg-green-100 text-xs md:text-lg'>
               {passwordArray.map((item, index) => {
                 return <tr key={index}>
                   <td className='border py-2 border-white '>

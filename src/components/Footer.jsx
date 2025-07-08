@@ -8,9 +8,9 @@ const Footer = () => {
                 Pass
                 <span className='text-green-500'>OP/&gt;</span>
             </div>
-            <footer className='flex justify-center gap-15 text-gray-400'>
-                <p class="mt-1">Made by Aditya</p>
-                <p class="mt-1">© 2025 PassOP. All rights reserved.</p>
+            <footer className='flex justify-center items-center gap-15 text-gray-400 text-xs md:text-sm'>
+                <p>Made by Aditya</p>
+                <p>© 2025 PassOP. All rights reserved.</p>
             </footer>
         </footer>
     )
