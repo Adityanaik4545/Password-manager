@@ -1,6 +1,6 @@
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useEffect, useState, useRef } from 'react'
 const Manager = () => {
   const ref = useRef()
@@ -16,8 +16,8 @@ const Manager = () => {
   const copyText = (text) => {
     toast.success('Copied to clipboard!', {
       position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
+      autoClose: 1000,
+      hideProgressBar: true,
       closeOnClick: false,
       pauseOnHover: true,
       draggable: true,
@@ -45,9 +45,10 @@ const Manager = () => {
   }
   const savePassword = () => {
     if (form.site.length>3 && form.username.length>3 && form.password.length>3) {
-          setPasswordArray([...passwordArray, { ...form, id: uuidv4() }])
-    localStorage.setItem("passwords", JSON.stringify([...passwordArray, { ...form, id: uuidv4() }]))
-    setForm({ site: '', username: '', password: '' })
+      const newPasswordArray = [...passwordArray, { ...form, id: uuidv4() }];
+      setPasswordArray(newPasswordArray);
+      localStorage.setItem("passwords", JSON.stringify(newPasswordArray));
+      setForm({ site: '', username: '', password: '' });
           toast.success('Saved !', {
         position: "bottom-right",
         autoClose: 1000,
@@ -84,8 +85,9 @@ const Manager = () => {
     console.log("deleting pass with id", id);
     let c = confirm("are you sure ?")
     if (c) {
-      setPasswordArray(passwordArray.filter(item => item.id !== id))
-      localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item => item.id !== id)))
+      const newPasswordArray = passwordArray.filter(item => item.id !== id);
+      setPasswordArray(newPasswordArray);
+      localStorage.setItem("passwords", JSON.stringify(newPasswordArray));
       toast.error('deleted!', {
         position: "bottom-right",
         autoClose: 1000,
@@ -106,34 +108,20 @@ const Manager = () => {
   }
   return (
     <>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition="Bounce"
-      />
-      <ToastContainer />
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-green-700 opacity-20 blur-[100px]"></div></div>
-      <div className="container mx-auto p-3 md:mycontainer">
+      <div className="container mx-auto p-3 md:mycontainer ">
         <h1 className='text-center font-bold text-4xl'><span className='text-green-500'>&lt;</span>
           Pass
           <span className='text-green-500'>OP/&gt;</span></h1>
         <p className='text-center text-green-900 text-lg'>Your personal password manager</p>
 
         <div className=' flex flex-col items-center p-4 text-black gap-8'>
-          <input value={form.site} name='site' placeholder='Enter Website URL' onChange={handleChange} className='bg-white rounded-full border  border-white-green-500 w-full p-4 py-2' type="text" id='site' />
+          <input value={form.site} name='site' placeholder='Enter Website URL' onChange={handleChange} className='bg-white rounded-full border  border-green-700  w-full p-4 py-2' type="text" id='site' />
 
           <div className='flex flex-col md:flex-row gap-8 w-full justify-between'>
-            <input value={form.username} name='username' placeholder='Enter User Name' onChange={handleChange} className='bg-white rounded-full  border border-white-green-500 w-full p-4 py-2 ' type="text" id='username' />
+            <input value={form.username} name='username' placeholder='Enter User Name' onChange={handleChange} className='bg-white rounded-full  border-green-700 border border-white-green-500 w-full p-4 py-2 ' type="text" id='username' />
             <div className="relative">
-              <input ref={passwordRef} type="password" value={form.password} name='password' placeholder='Enter Password' onChange={handleChange} id='password' className='bg-white rounded-full  border border-white-green-500 w-full p-4 py-2' />
+              <input ref={passwordRef} type="password" value={form.password} name='password' placeholder='Enter Password' onChange={handleChange} id='password' className='bg-white rounded-full  border-green-700 border border-white-green-500 w-full p-4 py-2' />
               <span className='absolute right-0 top-[10px]'><img ref={ref} src="icons/eye.png" width={25} className=' p-1 cursor-pointer' onClick={showPassword} alt="" /></span>
             </div>
           </div>
@@ -161,7 +149,8 @@ const Manager = () => {
                 return <tr key={index}>
                   <td className='border py-2 border-white '>
                     <div className='flex justify-center'>
-                      <a href={item.site} target='_blank'>{item.site}</a>
+                      <a href={item.site.startsWith('http') ? item.site : `https://${item.site}`}target='_blank'>{item.site}</a>
+                      {console.log(item.site)}
                       <div className='cursor-pointer' onClick={() => { copyText(item.site) }}>
 
                         <lord-icon
@@ -188,7 +177,7 @@ const Manager = () => {
                   </td>
                   <td className='border py-2 border-white text-center'>
                     <div className='flex justify-center items-center'>
-                      <span>{item.password}</span>
+                      <span>{"*".repeat(item.password.length)}</span>
                       <div className='cursor-pointer' onClick={() => { copyText(item.password) }}>
                         <lord-icon
                           style={{ "width": "20px", "height": "20px", "paddingTop": "3px", "paddingLeft": "3px" }}
