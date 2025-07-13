@@ -24,10 +24,11 @@ A responsive and user-friendly password manager built using **React** and **Tail
 ---
 
 ## 📸 Screenshots
-(./public/screenshot-dashboard.png)
+(public/ss/blank.png)
+(public/ss/full.png)
 
 ### 📱 Mobile View
-![Mobile View](./public/screenshot-mobile.png)
+![Mobile View](public/ss/mobile.jpg)
 
 ---
 
