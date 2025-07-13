@@ -30,7 +30,7 @@ A responsive and user-friendly password manager built using **React** and **Tail
 ### 🔐 Filled State
 ![Full State](./public/ss/full.png)
 ### 📱 Mobile View
-![Mobile View](public/ss/mobile.jpg)
+![Mobile View](public/ss/newmb.jpg)
 
 ---
 
