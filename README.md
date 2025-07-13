@@ -24,9 +24,11 @@ A responsive and user-friendly password manager built using **React** and **Tail
 ---
 
 ## 📸 Screenshots
-(public/ss/blank.png)
-(public/ss/full.png)
+### 🔲 Empty State
+![Blank State](./public/ss/blank.png)
 
+### 🔐 Filled State
+![Full State](./public/ss/full.png)
 ### 📱 Mobile View
 ![Mobile View](public/ss/mobile.jpg)
 
