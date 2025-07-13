@@ -1,3 +1,54 @@
+# 🔐 React Password Manager
+
+A responsive and user-friendly password manager built using **React** and **Tailwind CSS**, with secure local storage support. Easily store, edit, and delete your credentials with a smooth and clean interface — all data is stored locally in your browser for full privacy.
+
+---
+
+## 🌟 Features
+
+- ➕ Add new password entries (website, username/email, and password)
+- ✏️ Edit saved passwords
+- ❌ Delete credentials with a single click
+- 🔒 Data is saved in `localStorage` and persists across sessions
+- 📱 Fully responsive design with **Tailwind CSS**
+- 🎨 Clean and modern UI
+
+---
+
+## 🧑‍💻 Tech Stack
+
+- **Frontend:** React, HTML
+- **Styling:** Tailwind CSS
+- **Storage:** Browser `localStorage`
+
+---
+
+## 📸 Screenshots
+(./public/screenshot-dashboard.png)
+
+### 📱 Mobile View
+![Mobile View](./public/screenshot-mobile.png)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/password-manager.git
+```
+```bash
+cd password-manager
+```
+```bash
+npm i
+```
+
+```bash
+npm run dev
+```
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
